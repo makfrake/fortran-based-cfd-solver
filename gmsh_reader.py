@@ -9,7 +9,9 @@ gmsh.initialize()
 
 l  = 1
 h  = 0.3
-lc = 0.005   # Target mesh size
+lc = 0.01               # Target mesh size
+hp = int(round(l/lc))   # Number of horizontal grid points
+vp = int(round(h/lc))   # Number of horizontal grid points
 
 # Point definition
 
@@ -35,10 +37,10 @@ surface = gmsh.model.geo.addPlaneSurface([loop],1)
 
 # Structured mesh generation
 
-transf1 = gmsh.model.geo.mesh.setTransfiniteCurve(1, 120, "Progression", 1)
-transf2 = gmsh.model.geo.mesh.setTransfiniteCurve(3, 120, "Progression", -1)
-transf3 = gmsh.model.geo.mesh.setTransfiniteCurve(2, 400, "Bump", 1)
-transf4 = gmsh.model.geo.mesh.setTransfiniteCurve(4, 400, "Bump", 1)
+transf1 = gmsh.model.geo.mesh.setTransfiniteCurve(l1, vp, "Progression", 1)
+transf2 = gmsh.model.geo.mesh.setTransfiniteCurve(l3, vp, "Progression", -1)
+transf3 = gmsh.model.geo.mesh.setTransfiniteCurve(l2, hp, "Bump", 1)
+transf4 = gmsh.model.geo.mesh.setTransfiniteCurve(s4, hp, "Bump", 1)
 
 gmsh.model.geo.mesh.setTransfiniteSurface(surface,"Left",[p1,p2,p3,p4])
 
@@ -49,11 +51,21 @@ gmsh.model.geo.synchronize()
 
 # Boundary conditions
 
-gmsh.model.addPhysicalGroup(2,[l1],1)
+gmsh.model.addPhysicalGroup(2,[surface],1)
 gmsh.model.addPhysicalGroup(1,[s4,l2],99,"wall")
 gmsh.model.addPhysicalGroup(1,[l3],2,"inlet")
 gmsh.model.addPhysicalGroup(1,[l1],3,"outlet")
 
+# Generate mesh
+
+gmsh.model.mesh.generate(2)
+
 # Save msh file
 
 gmsh.write("bump.msh")
+
+if '-nopopup' not in sys.argv:
+    gmsh.fltk.run()
+
+
+gmsh.finalize()
