@@ -1,5 +1,4 @@
 import gmsh
-import numpy as np
 import sys
 
 
@@ -66,6 +65,5 @@ gmsh.write("bump.msh")
 
 if '-nopopup' not in sys.argv:
     gmsh.fltk.run()
-
 
 gmsh.finalize()
