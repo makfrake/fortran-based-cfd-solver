@@ -9,3 +9,4 @@ file_to_open = data_folder / "residuals.csv"
 x = pd.read_csv(file_to_open, sep=" , ", header=None, engine='python')
 print(x[0])
 
+
