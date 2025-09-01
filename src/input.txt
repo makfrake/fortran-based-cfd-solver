@@ -1,9 +1,9 @@
 *************************************************
 MESH FILE 
-bump_Strut_0025.msh 
+bump_Strut_01.msh 
 *************************************************
 KFINAL (numero massimo di passi temporali da fare)
-40000
+10000
 *************************************************
 KINF (scrive informazioni a schermo ogni kinf passi temporali)
 100
