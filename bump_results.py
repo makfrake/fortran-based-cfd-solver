@@ -4,8 +4,8 @@ import pandas as pd
 from pathlib import Path
 
 
-data_folder = Path("C:/Users/matte/PycharmProjects/Fortran-Based-CFD-Solver/Fortran_Solver/")
-file_to_open = data_folder / "residuals.csv"
+data_folder = Path("C:/Users/matte/PycharmProjects/Fortran-Based-CFD-Solver/src/")
+file_to_open = data_folder / "residuals.txt"
 
 columns_name = ['Iteration','Energy','Mass','MomentumX','MomentumY']
 plt_axs = ['# Iterations','']
