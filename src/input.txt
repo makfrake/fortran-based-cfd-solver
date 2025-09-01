@@ -1,0 +1,16 @@
+*************************************************
+MESH FILE 
+bump_Strut_0025.msh 
+*************************************************
+KFINAL (numero massimo di passi temporali da fare)
+40000
+*************************************************
+KINF (scrive informazioni a schermo ogni kinf passi temporali)
+100
+*************************************************
+KOUT (scrive la soluzione su disco ogni kout passi temporali)
+100
+*************************************************
+CFL
+0.3
+*************************************************
