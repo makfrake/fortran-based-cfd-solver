@@ -1,0 +1,13 @@
+*************************************************
+TTOTIN (temperatura totale flusso in ingresso)
+1.
+*************************************************
+PTOTIN (pressione totale flusso in ingresso)
+1.
+*************************************************
+ALPHA (angolo flusso in ingresso espresso in gradi)
+0.
+*************************************************
+MACHIN (ATTENZIONE: se l'ingresso è subsonico questo valore viene ignorato nel calcolo, viene usato solo per inizializzazione)
+0.3
+*************************************************
