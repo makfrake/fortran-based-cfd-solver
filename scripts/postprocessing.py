@@ -20,3 +20,15 @@ def plot_res(file_to_open,  columns_name, plt_axs, plt_title):
         plt.grid(True, which='minor')  # minor doesn't work
         plt.legend(res.columns[1::])
     plt.show()
+
+
+
+
+
+
+
+
+
+
+
+

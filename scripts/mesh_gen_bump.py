@@ -4,7 +4,7 @@ import sys
 
 gmsh.initialize()
 
-# Characterich length generation
+# Characteristic length
 
 l  = 1
 h  = 0.3
@@ -22,7 +22,7 @@ p5 = gmsh.model.geo.addPoint(l/2,h/10,0,lc,5)
 p6 = gmsh.model.geo.addPoint(l/2-l/8,0,0,lc,6)
 p7 = gmsh.model.geo.addPoint(l/2+l/8,0,0,lc,7)
 
-# Lines definitions
+# Lines definition
 
 l1 = gmsh.model.geo.addLine(p2,p3,1)
 l2 = gmsh.model.geo.addLine(p3,p4,2)
