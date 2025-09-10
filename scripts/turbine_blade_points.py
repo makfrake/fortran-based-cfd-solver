@@ -151,5 +151,6 @@ p147 = gmsh.model.geo.addPoint(0.096819, 0.148840, 0, lc)
 p148 = gmsh.model.geo.addPoint(0.057918, 0.109707, 0, lc)
 p149 = gmsh.model.geo.addPoint(0.019096, 0.063925, 0, lc)
 
-BSpline(9) = {37: 148, 9: 37};
-s4 = gmsh.model.geo.addSpline([p1,p6,p5,p7,p2],4)
+points = [globals()[f"p{i}"] for i in range(9, 150)]
+
+s9 = gmsh.model.geo.addSpline(points,9)

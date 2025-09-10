@@ -1,5 +1,6 @@
 import gmsh
 import sys
+from turbine_blade_points import s9
 
 
 gmsh.initialize()
@@ -33,40 +34,59 @@ l8  = gmsh.model.geo.addLine(p8,p1,8)
 
 # 2D Surface generation
 
-loop    = gmsh.model.geo.addCurveLoop([l1,l2,l3,l4,l5,l6,l7,l8],1)
-surface = gmsh.model.geo.addPlaneSurface([loop],1)
+loop1    = gmsh.model.geo.addCurveLoop([l1,l2,l3,l4,l5,l6,l7,l8],1)
+loop2    = gmsh.model.geo.addCurveLoop(s9,2)
+
+surface = gmsh.model.geo.addPlaneSurface([loop1,loop2],1)
+
+# Periodic boundaries
+
+
 
 # Unstructured mesh generation
 
 field1 = gmsh.model.mesh.field.add("Attractor",1)
-gmsh.model.mesh.field.setNumbers(field1, "EdgesList",[l3,l4,l5,l6,l7,l8])
+gmsh.model.mesh.field.setNumbers(field1, "EdgesList",s9)
 
 field2 = gmsh.model.mesh.field.add("Threshold", 2)
 gmsh.model.mesh.field.setNumber(field2, "IField",1)
-gmsh.model.mesh.field.setNumber(field2, "LcMin",lc*0.005)
-gmsh.model.mesh.field.setNumber(field2, "IField",lc*0.025)
-gmsh.model.mesh.field.setNumber(field2, "DistMin",h/4)
-gmsh.model.mesh.field.setNumber(field2, "DistMax",h)
+gmsh.model.mesh.field.setNumber(field2, "LcMin",0.01)
+gmsh.model.mesh.field.setNumber(field2, "IField",0.05)
+gmsh.model.mesh.field.setNumber(field2, "DistMin",0.25)
+gmsh.model.mesh.field.setNumber(field2, "DistMax",0.5)
 
-gmsh.model.mesh.field.setAsBackgroundMesh(2)
-gmsh.model.geo.mesh.setRecombine(1,1)
+field3 = gmsh.model.mesh.field.add("Min")
+gmsh.model.mesh.field.setNumbers(field3, "FieldsList",l2)
+gmsh.model.mesh.field.setAsBackgroundMesh(3)
+
+field4 = gmsh.model.mesh.field.add("BoundaryLayer",4)
+gmsh.model.mesh.field.setNumber(field4, "EdgesList",s9)
+gmsh.model.mesh.field.setNumber(field4, "hwall_n",0.001)
+gmsh.model.mesh.field.setNumber(field4, "thickness",0.05)
+gmsh.model.mesh.field.setNumber(field4, "ratio",1.2)
+gmsh.model.mesh.field.setNumber(field4, "Quads",1)
+gmsh.model.mesh.field.setAsBoundaryLayer(4)
+
+#gmsh.model.geo.mesh.setRecombine(1,1)
 
 gmsh.model.geo.synchronize()
 
 # Boundary conditions
 
 gmsh.model.addPhysicalGroup(2,[surface],1)
-gmsh.model.addPhysicalGroup(1,[l1,l2,l3,l4,l5,l7,l8,l10],99,"wall")
-gmsh.model.addPhysicalGroup(1,[l11],2,"inlet")
-gmsh.model.addPhysicalGroup(1,[l6,l9],3,"outlet")
+gmsh.model.addPhysicalGroup(1,s9,99,"blade")
+gmsh.model.addPhysicalGroup(1,[l5,l6,l7],50,"")
+gmsh.model.addPhysicalGroup(1,[l1,l2,l3],40,"")
+gmsh.model.addPhysicalGroup(1,[l8],2,"inlet")
+gmsh.model.addPhysicalGroup(1,[l4],3,"outlet")
 
 # Generate mesh
 
-gmsh.model.mesh.generate(2)
+gmsh.model.mesh.generate()
 
 # Save msh file
 
-gmsh.write("intake.msh")
+gmsh.write("turbine_blade.msh")
 
 if '-nopopup' not in sys.argv:
     gmsh.fltk.run()
