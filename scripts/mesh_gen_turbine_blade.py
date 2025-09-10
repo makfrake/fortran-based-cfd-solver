@@ -35,18 +35,22 @@ l8  = gmsh.model.geo.addLine(p8,p1,8)
 # 2D Surface generation
 
 loop1    = gmsh.model.geo.addCurveLoop([l1,l2,l3,l4,l5,l6,l7,l8],1)
-loop2    = gmsh.model.geo.addCurveLoop(s9,2)
+loop2    = gmsh.model.geo.addCurveLoop([s9],2)
 
 surface = gmsh.model.geo.addPlaneSurface([loop1,loop2],1)
 
+gmsh.model.geo.synchronize()
+
 # Periodic boundaries
 
-
+gmsh.model.mesh.setPeriodic(1, [l7], [l1], [1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 1])
+gmsh.model.mesh.setPeriodic(1, [l6], [l2], [1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 1])
+gmsh.model.mesh.setPeriodic(1, [l5], [l3], [1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 1])
 
 # Unstructured mesh generation
 
 field1 = gmsh.model.mesh.field.add("Attractor",1)
-gmsh.model.mesh.field.setNumbers(field1, "EdgesList",s9)
+gmsh.model.mesh.field.setNumbers(field1, "EdgesList",[s9])
 
 field2 = gmsh.model.mesh.field.add("Threshold", 2)
 gmsh.model.mesh.field.setNumber(field2, "IField",1)
@@ -56,7 +60,7 @@ gmsh.model.mesh.field.setNumber(field2, "DistMin",0.25)
 gmsh.model.mesh.field.setNumber(field2, "DistMax",0.5)
 
 field3 = gmsh.model.mesh.field.add("Min")
-gmsh.model.mesh.field.setNumbers(field3, "FieldsList",l2)
+gmsh.model.mesh.field.setNumbers(field3, "FieldsList",[l2])
 gmsh.model.mesh.field.setAsBackgroundMesh(3)
 
 field4 = gmsh.model.mesh.field.add("BoundaryLayer",4)
@@ -69,12 +73,10 @@ gmsh.model.mesh.field.setAsBoundaryLayer(4)
 
 #gmsh.model.geo.mesh.setRecombine(1,1)
 
-gmsh.model.geo.synchronize()
-
 # Boundary conditions
 
 gmsh.model.addPhysicalGroup(2,[surface],1)
-gmsh.model.addPhysicalGroup(1,s9,99,"blade")
+gmsh.model.addPhysicalGroup(1,[s9],99,"blade")
 gmsh.model.addPhysicalGroup(1,[l5,l6,l7],50,"")
 gmsh.model.addPhysicalGroup(1,[l1,l2,l3],40,"")
 gmsh.model.addPhysicalGroup(1,[l8],2,"inlet")
@@ -82,7 +84,7 @@ gmsh.model.addPhysicalGroup(1,[l4],3,"outlet")
 
 # Generate mesh
 
-gmsh.model.mesh.generate()
+gmsh.model.mesh.generate(2)
 
 # Save msh file
 
