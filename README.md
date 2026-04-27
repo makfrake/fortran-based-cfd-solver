@@ -13,6 +13,9 @@ The core solver is written entirely in Fortran to maximize computational efficie
 
 ## Results plot
 
+Below are plotted the mach number fields for the LS59 turbine blade cascade (on the left) and for the supersonic intake (on the right). From the plots it can be clearly seen the regions of supersonic and subsonic flow, along with shock waves and Prandtl-Meyer expansion fans.
+
+![ls59_mach](results_plot/ls59_mach.png)  ![intake_mach](results_plot/intake_mach.png)
 
 
 ## Numerical Methods Implemented
