@@ -1,4 +1,4 @@
-# 2D Compressible CFD Solver: Fortran & Python Pipeline
+# 2D Compressible CFD Solver
 
 A custom Computational Fluid Dynamics (CFD) solver developed to numerically integrate the 2D Euler equations (inviscid Navier-Stokes) for compressible flows. 
 
