@@ -11,6 +11,10 @@ The core solver is written entirely in Fortran to maximize computational efficie
 * **Core Solver:** Fortran-based numerical integration using density-based schemes.
 * **Post-processing:** Python scripts for automated data extraction, residual tracking, and field visualization (Mach, Pressure, Entropy).
 
+## Results plot
+
+
+
 ## Numerical Methods Implemented
 * **Schemes:** Implementation of Lax-Friedrichs and Roe (approximate Riemann solver) schemes.
 * **Convergence Verification:** Advanced grid convergence studies using L2-norm entropy tracking and Richardson Extrapolation (evaluating both theoretical and effective convergence orders).
