@@ -17,6 +17,8 @@ Below are plotted the mach number fields for the LS59 turbine blade cascade (on 
 
 ![ls59_mach](results_plot/ls59_mach.png)  ![intake_mach](results_plot/intake_mach.png)
 
+<img src="results_plot/ls59_mach.png" width="300"> <img src="results_plot/intake_mach.png" width="300">
+
 
 ## Numerical Methods Implemented
 * **Schemes:** Implementation of Lax-Friedrichs and Roe (approximate Riemann solver) schemes.
